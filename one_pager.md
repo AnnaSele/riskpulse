@@ -1,87 +1,69 @@
-# RiskPulse: Credit Portfolio Intelligence
+# RiskPulse: веб-сервис для анализа кредитного портфеля
 
-**Prototype link:** _insert Streamlit link here_
+## Проблема
 
-## 1. Problem
+В банковской аналитике значительная часть времени уходит на ручную обработку данных: выгрузку таблиц, расчёт риск-метрик, поиск проблемных клиентов и подготовку управленческих выводов. Часто такие процессы выполняются в Excel, SQL-запросах или отдельных отчётах, что делает анализ медленным, трудоёмким и зависимым от ручной проверки.
 
-Credit portfolio analysis in banks often requires analysts to manually combine SQL queries, Excel files, dashboards, and written comments for management. This creates several problems: the analysis is slow, the methodology is not always transparent, repetitive reporting consumes analyst time, and risky segments may be identified too late.
+Особенно сложно быстро получить целостную картину по портфелю: какие клиенты наиболее рискованные, в каких сегментах концентрируется задолженность, как связаны доходность и риск, какие договоры требуют внимания в первую очередь.
 
-The problem is especially relevant for portfolio monitoring, profitability analysis, and retail risk management. Analysts need to quickly answer questions such as: which segments are becoming riskier, where negative profitability is concentrated, which clients require attention, and what actions should be prioritized.
+## Решение
 
-## 2. Solution
+**RiskPulse** — это веб-сервис для автоматического анализа кредитного портфеля. Пользователь загружает CSV-файл с данными по клиентам или договорам, после чего сервис рассчитывает ключевые показатели, присваивает каждому договору уровень риска, строит интерактивные графики и формирует краткий аналитический вывод.
 
-RiskPulse is a web service for automated credit portfolio intelligence. The user uploads a CSV file with client or contract-level data, and the service automatically calculates portfolio metrics, assigns risk levels to contracts, builds interactive visualizations, identifies the riskiest clients, and generates a short executive summary.
+Сервис помогает быстро перейти от необработанной таблицы к понятному дашборду, который можно использовать для первичного анализа портфеля и поддержки управленческих решений.
 
-The prototype works with synthetic data, so it can be demonstrated without using confidential bank information.
+## Целевая аудитория
 
-## 3. Target users
+Сервис предназначен для:
 
-The service is designed for:
+- банковских аналитиков;
+- риск-менеджеров;
+- продуктовых команд;
+- руководителей направлений;
+- студентов, изучающих финансовую аналитику, риск-менеджмент и data-driven decision making.
 
-- credit risk analysts;
-- portfolio managers;
-- product teams in banking;
-- team leads and managers who need a fast overview of portfolio quality.
+## Основной функционал
 
-## 4. Main functionality
+RiskPulse предоставляет следующие возможности:
 
-RiskPulse includes the following features:
+1. **Загрузка данных**  
+   Пользователь может загрузить CSV-файл с данными по кредитному портфелю. Также в сервисе предусмотрен демонстрационный датасет с синтетическими данными.
 
-1. CSV upload with validation of required columns.
-2. Automatic calculation of portfolio KPIs:
-   - number of contracts;
-   - total debt;
-   - average profitability;
-   - share of high-risk contracts;
-   - average debt-to-income ratio.
-3. Rule-based risk scoring for each contract.
-4. Risk segmentation into Low, Medium, and High risk groups.
-5. Interactive charts:
-   - risk distribution;
-   - average risk score by segment;
-   - profitability vs. debt-to-income ratio;
-   - debt exposure by region.
-6. Table with the top risky contracts and explanations of risk drivers.
-7. Executive summary that explains the main portfolio issues in business language.
-8. Export of the scored portfolio to CSV.
+2. **Расчёт ключевых метрик портфеля**  
+   Сервис автоматически считает:
+   - количество договоров;
+   - общий объём задолженности;
+   - среднюю доходность;
+   - долю договоров высокого риска;
+   - распределение портфеля по сегментам.
 
-## 5. Motivation for implementation
+3. **Risk scoring**  
+   Для каждого договора определяется уровень риска: `Low`, `Medium` или `High`. Оценка строится на основе нескольких факторов: просрочки, долговой нагрузки, кредитного скоринга, доходности и обеспеченности.
 
-The service improves the analytical workflow by reducing the amount of manual work needed for first-level credit portfolio review. Instead of preparing separate SQL extracts, Excel calculations, charts, and written comments, an analyst can upload data and immediately receive a structured portfolio overview.
+4. **Интерактивный дашборд**  
+   Сервис строит графики по:
+   - распределению договоров по уровню риска;
+   - задолженности по сегментам;
+   - связи между доходностью и уровнем риска;
+   - топу наиболее рискованных договоров.
 
-This can reduce reporting time, improve consistency of risk classification, make portfolio monitoring more transparent, and help management react faster to negative changes in portfolio quality.
+5. **Executive summary**  
+   Сервис автоматически формирует краткий аналитический вывод о состоянии портфеля: где сконцентрирован риск, какие сегменты требуют внимания и какова общая структура портфеля.
 
-## 6. Technical complexity
+6. **Экспорт результата**  
+   Пользователь может скачать обработанный файл с рассчитанным риск-классом и скоринговыми показателями.
 
-The prototype is not a static website. It includes several technical components:
+## Мотивация для внедрения
 
-- data ingestion through file upload;
-- validation of input schema;
-- feature engineering, including debt-to-income ratio and collateral coverage;
-- transparent rule-based risk scoring;
-- portfolio aggregation and KPI calculation;
-- interactive visual analytics with Plotly;
-- automatic generation of an executive summary;
-- downloadable analytical output.
+RiskPulse сокращает время первичного анализа кредитного портфеля и снижает зависимость от ручной подготовки отчётов. Вместо того чтобы анализировать таблицы вручную, пользователь получает готовый дашборд, список проблемных договоров и краткое резюме.
 
-The current risk model is rule-based for transparency. In a production version, it could be replaced with a machine learning model trained on historical default, delinquency, and recovery data.
+Такой сервис может быть полезен как внутренний аналитический инструмент в банке: он позволяет быстрее выявлять проблемные зоны, приоритизировать работу с рискованными клиентами и принимать решения на основе данных.
 
-## 7. Technology stack
+## Техническая реализация
 
-- Python
-- Streamlit
-- Pandas
-- NumPy
-- Plotly
+Прототип реализован как веб-приложение на **Python** с использованием **Streamlit**. Для обработки данных используется **Pandas**, для визуализации — **Plotly**, для риск-классификации — rule-based scoring model.
 
-## 8. Future development
+Сервис доступен онлайн через **Streamlit Community Cloud**.
 
-Potential extensions include:
 
-- integration with a database or data warehouse;
-- historical trend monitoring;
-- ML-based probability of default model;
-- alerts for portfolio deterioration;
-- user authentication;
-- PDF report generation;
-- API for integration with internal bank systems.
+

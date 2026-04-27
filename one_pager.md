@@ -63,7 +63,7 @@ RiskPulse сокращает время первичного анализа кр
 
 Прототип реализован как веб-приложение на **Python** с использованием **Streamlit**. Для обработки данных используется **Pandas**, для визуализации — **Plotly**, для риск-классификации — rule-based scoring model.
 
-Сервис доступен онлайн через **Streamlit Community Cloud**.
+Сервис доступен онлайн через **Streamlit Community Cloud** https://riskpulse-4whzb9edfctb8xx7hvdtq9.streamlit.app/
 
 
 
